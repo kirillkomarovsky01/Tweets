@@ -45,6 +45,10 @@ class APIController{
                         var twt = [Tweet]()
                         for tweet in (dic["statuses"] as! NSArray) {
                             
+                            let status = tweet as! NSDictionary
+                            let user = status["user"] as! NSDictionary
+                            let tw = Tweet(name: (user["name"] as? String)!, text: (status["text"] as? String)!, date: (status["created_at"] as? String)!)
+                            twt.append(tw)
                         }
                     }
                 }
