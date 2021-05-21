@@ -41,18 +41,27 @@ class APIController{
             }
             else if let d = data {
                 do {
-                    if let dic: NSDictionary = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? NSDictionary {
+                    if let dic: NSDictionary = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary {
                         var twt = [Tweet]()
                         for tweet in (dic["statuses"] as! NSArray) {
                             
                             let status = tweet as! NSDictionary
                             let user = status["user"] as! NSDictionary
-                            let tw = Tweet(name: (user["name"] as? String)!, text: (status["text"] as? String)!, date: (status["created_at"] as? String)!)
+                            let tw = Tweet(name: (user["name"] as? String)!, text: (status["text"] as? String)!, data: (status["created_at"] as? String)!)
                             twt.append(tw)
+                        }
+                        DispatchQueue.main.async {
+                            self.delegat?.takeTweets(tweets: twt)
+                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         }
                     }
                 }
+                catch (let err) {
+                    self.delegat?.error((err as NSError) as! [NSError])
+                }
             }
-        })
-    }
+            
+        
+    }) .resume()
+}
 }
