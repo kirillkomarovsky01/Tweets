@@ -24,7 +24,7 @@ class ViewController: UIViewController, APITwitterDelegate, UITableViewDelegate,
            
            tokenRequest(callback: runApi)
            self.requestTextField.delegate = self
-       }
+    }
 
 
 }
