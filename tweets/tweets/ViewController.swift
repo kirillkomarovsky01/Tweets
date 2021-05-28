@@ -114,7 +114,7 @@ class ViewController: UIViewController, APITwitterDelegate, UITableViewDelegate,
             cell.nameLabel.text = self.tweets[indexPath.row].name
             cell.tweetText.text = self.tweets[indexPath.row].text
             
-            return cell
+        return cell
    
 }
 
